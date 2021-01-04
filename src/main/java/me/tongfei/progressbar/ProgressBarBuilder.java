@@ -23,6 +23,7 @@ public class ProgressBarBuilder {
     private ChronoUnit speedUnit = ChronoUnit.SECONDS;
     private long processed = 0;
     private Duration elapsed = Duration.ZERO;
+    private boolean clearOnClose = false;
 
     public ProgressBarBuilder() { }
 
@@ -72,6 +73,11 @@ public class ProgressBarBuilder {
         return this;
     }
 
+    public ProgressBarBuilder setClearOnClose(boolean clearOnClose) {
+        this.clearOnClose = clearOnClose;
+        return this;
+    }
+
     /**
      * Sets elapsedBeforeStart duration and number of processed units.
      * @param processed amount of processed units
@@ -91,7 +97,7 @@ public class ProgressBarBuilder {
                 processed,
                 elapsed,
                 new DefaultProgressBarRenderer(style, unitName, unitSize, showSpeed, speedFormat,speedUnit),
-                consumer == null ? Util.createConsoleConsumer() : consumer
+                consumer == null ? Util.createConsoleConsumer(clearOnClose) : consumer
         );
     }
 }

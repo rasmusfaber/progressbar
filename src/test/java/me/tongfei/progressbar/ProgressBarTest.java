@@ -38,6 +38,33 @@ public class ProgressBarTest {
         }
         System.out.println("Hello");
     }
+
+    @Test
+    public void testClear() {
+        try (ProgressBar pb = new ProgressBarBuilder()
+                .setTaskName("Test")
+                //.setInitialMax(5)
+                //.setUpdateIntervalMillis(50)
+                //.setStyle(ProgressBarStyle.UNICODE_BLOCK).setUnit("K", 1024)
+                .setClearOnClose(true)
+                .build()) {
+
+            ArrayList<Integer> l = new ArrayList<Integer>();
+
+            System.out.println("\n\n\n\n\n");
+
+            for (int i = 0; i < 5; i++) {
+                pb.step();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Hello");
+    }
+
     @Test
     public void testSpeedFormat() throws InterruptedException {
         ProgressBar bar = new ProgressBarBuilder()

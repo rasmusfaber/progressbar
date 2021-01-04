@@ -18,13 +18,13 @@ class Util {
         return thread;
     });
 
-    static ConsoleProgressBarConsumer createConsoleConsumer() {
-        return createConsoleConsumer(System.err);
+    static ConsoleProgressBarConsumer createConsoleConsumer(boolean clearOnClose) {
+        return createConsoleConsumer(System.err, clearOnClose);
     }
 
-    static ConsoleProgressBarConsumer createConsoleConsumer(PrintStream out) {
+    static ConsoleProgressBarConsumer createConsoleConsumer(PrintStream out, boolean clearOnClose) {
         return TerminalUtils.hasCursorMovementSupport() ?
-                new InteractiveConsoleProgressBarConsumer(out) : new ConsoleProgressBarConsumer(out);
+                new InteractiveConsoleProgressBarConsumer(out, clearOnClose) : new ConsoleProgressBarConsumer(out, clearOnClose);
     }
 
     static String repeat(char c, int n) {

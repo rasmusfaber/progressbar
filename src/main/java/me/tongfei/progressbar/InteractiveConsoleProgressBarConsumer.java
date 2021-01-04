@@ -15,7 +15,11 @@ public class InteractiveConsoleProgressBarConsumer extends ConsoleProgressBarCon
     private int position = 1;
 
     public InteractiveConsoleProgressBarConsumer(PrintStream out) {
-        super(out);
+        this(out, false);
+    }
+
+    public InteractiveConsoleProgressBarConsumer(PrintStream out, boolean clearOnClose) {
+        super(out, clearOnClose);
     }
 
     @Override
@@ -31,6 +35,10 @@ public class InteractiveConsoleProgressBarConsumer extends ConsoleProgressBarCon
 
     @Override
     public void close() {
+        if (clearOnClose) {
+            accept(Util.repeat(' ', getMaxRenderedLength()));
+            out.print(moveCursorUp(position));
+        }
         out.flush();
         TerminalUtils.activeConsumers.remove(this);
     }

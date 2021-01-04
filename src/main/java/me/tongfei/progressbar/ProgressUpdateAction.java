@@ -25,7 +25,7 @@ class ProgressUpdateAction implements Runnable {
     }
 
     public void run() {
-        if (!progress.paused) refresh();
+        if (!progress.paused && progress.alive) refresh();
         if (!progress.alive) {
             consumer.close();
             TerminalUtils.closeTerminal();

@@ -68,7 +68,38 @@ public class ProgressBar implements AutoCloseable {
     ) {
         this(task, initialMax, updateIntervalMillis, processed, elapsed,
                 new DefaultProgressBarRenderer(style, unitName, unitSize, showSpeed, speedFormat, speedUnit),
-                createConsoleConsumer(os)
+                createConsoleConsumer(os, false)
+        );
+    }
+
+    /**
+     * Creates a progress bar with the specific taskName name, initial maximum value,
+     * customized update interval (default 1000 ms), the PrintStream to be used, and output style.
+     * @param task Task name
+     * @param initialMax Initial maximum value
+     * @param updateIntervalMillis Update interval (default value 1000 ms)
+     * @param style Output style (default value ProgressBarStyle.UNICODE_BLOCK)
+     * @param showSpeed Should the calculated speed be displayed
+     * @param speedFormat Speed number format
+     */
+    public ProgressBar(
+            String task,
+            long initialMax,
+            int updateIntervalMillis,
+            PrintStream os,
+            ProgressBarStyle style,
+            String unitName,
+            long unitSize,
+            boolean showSpeed,
+            DecimalFormat speedFormat,
+            ChronoUnit speedUnit,
+            boolean clearOnClose,
+            long processed,
+            Duration elapsed
+    ) {
+        this(task, initialMax, updateIntervalMillis, processed, elapsed,
+                new DefaultProgressBarRenderer(style, unitName, unitSize, showSpeed, speedFormat, speedUnit),
+                createConsoleConsumer(os, clearOnClose)
         );
     }
 
